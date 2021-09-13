@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Omdb\OmdbClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,9 +24,15 @@ class MovieController extends AbstractController
     /**
      * @Route("/search", name="search")
      */
-    public function search(): Response
+    public function search(OmdbClient $omdbClient, Request $request): Response
     {
-        return $this->render('movie/search.html.twig');
+        $keyword = $request->query->get('keyword', 'Sun');
+        $result = $omdbClient->requestAllBySearch($keyword);
+
+        return $this->render('movie/search.html.twig', [
+            'movies' => $result['Search'],
+            'keyword' => $keyword,
+        ]);
     }
 
     /**
