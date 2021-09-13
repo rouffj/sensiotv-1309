@@ -6,17 +6,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/movie", name="movie_", methods={"GET"})
+ */
 class MovieController extends AbstractController
 {
     /**
-     * @Route("/movie/{id}", name="movie_show", methods={"GET"}, requirements={"id": "\d+"})
+     * @Route("/{id}", name="show", requirements={"id": "\d+"})
      */
     public function show(int $id): Response
     {
-        dump($id);
+        return $this->render('movie/show.html.twig');
+    }
 
-        return $this->render('movie/show.html.twig', [
-            'controller_name' => 'MovieController',
-        ]);
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(): Response
+    {
+        return $this->render('movie/search.html.twig');
+    }
+
+    /**
+     * @Route("/latest", name="latest")
+     */
+    public function latest(): Response
+    {
+        return $this->render('movie/latest.html.twig');
     }
 }
