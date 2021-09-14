@@ -1,0 +1,23 @@
+### config/packages/twig.yaml ###
+
+twig:
+    form_themes:
+        - 'bootstrap_4_horizontal_layout.html.twig'
+        - 'form_theme.html.twig' # Custom theme
+
+### templates/form_theme.html.twig ###
+
+{# email|text|tel|... #}
+{% block email_label %}
+    {{ name }}
+    {{ form_errors(form) }}
+{% endblock %}
+
+{% block email_widget %}
+    {# Allow to display all variables available inside the block #}
+    {{ dump() }}
+    <form-email>
+        <input type="text" name="{{ full_name }}"/>
+    </form-email>
+{% endblock %}
+

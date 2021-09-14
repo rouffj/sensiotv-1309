@@ -1,0 +1,21 @@
+{# email|text|tel|... #}
+{% block email_label %}
+    {{ name }}
+    {{ form_errors(form) }}
+{% endblock %}
+
+{% block email_widget %}
+    {# Allow to display all variables available inside the block #}
+    <form-email>
+        <input type="text" name="{{ full_name }}" value="{{ value }}"/>
+    </form-email>
+
+    {# dump() #}
+{% endblock %}
+
+{% block _user_phone_widget %}
+{# dump() #}
+    <div class="col-sm-10">
+        <input type="text" id="{{ id }}" name="{{ full_name }}" value="+33{{ value }}" class="form-control">
+    </div>
+{% endblock %}

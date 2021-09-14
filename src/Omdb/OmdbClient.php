@@ -37,11 +37,11 @@ final class OmdbClient
     /** @var HttpClientInterface */
     private $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient, string $omdbToken, string $omdbHost)
+    public function __construct(HttpClientInterface $omdbClient, string $omdbToken, string $omdbHost)
     {
         $this->token = $omdbToken;
         $this->host = $omdbHost;
-        $this->httpClient = $httpClient;
+        $this->httpClient = $omdbClient;
     }
 
     public function requestOneById($mediaId, array $options = []): array
@@ -49,7 +49,7 @@ final class OmdbClient
         $options = array_merge([$mediaId], $options);
 
         return $this->requestBy(
-            $this->validQueryParameters('t', $options)
+            $this->validQueryParameters('i', $options)
         );
     }
 
