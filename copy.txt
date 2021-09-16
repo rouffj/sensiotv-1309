@@ -1,23 +1,24 @@
-### config/packages/twig.yaml ###
+### composer.json ###
+{
+    "require": {
+        "symfony/console": "^5.3"
+    },
+    "require-dev": {
+        "symfony/finder": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
 
-twig:
-    form_themes:
-        - 'bootstrap_4_horizontal_layout.html.twig'
-        - 'form_theme.html.twig' # Custom theme
+### console ###
 
-### templates/form_theme.html.twig ###
+### src/AppCommand.php ###
 
-{# email|text|tel|... #}
-{% block email_label %}
-    {{ name }}
-    {{ form_errors(form) }}
-{% endblock %}
+### build/build_phar.php ###
 
-{% block email_widget %}
-    {# Allow to display all variables available inside the block #}
-    {{ dump() }}
-    <form-email>
-        <input type="text" name="{{ full_name }}"/>
-    </form-email>
-{% endblock %}
+### build/build.sh ###
 
+### build/PharBuilder.php ###
