@@ -11,13 +11,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use App\Event\UserRegisteredEvent;
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function register(EventDispatcherInterface $eventDispatcher, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $user->setEmail('joseph@joseph.io');
@@ -33,6 +35,8 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             dump($user);
+
+            $eventDispatcher->dispatch(new UserRegisteredEvent($user), 'user_registered');
 
             return $this->redirectToRoute('homepage');
         }
